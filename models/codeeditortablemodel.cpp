@@ -158,6 +158,12 @@ void CodeEditorTableModel::remove(QModelIndex index) {
     emit toRemove(id);
 }
 
+void CodeEditorTableModel::exportTo(QDir dir) {
+    auto editors = data_;
+    editors.detach(); // Создаем копию данных
+    emit exportData(dir, std::move(editors));
+}
+
 void CodeEditorTableModel::loadCallback(QVector<CodeEditor> editors) {
     beginResetModel();
     data_ = std::move(editors);

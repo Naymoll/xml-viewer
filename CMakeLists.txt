@@ -35,8 +35,8 @@ set(PROJECT_SOURCES
 
         workers/databaseworker.cpp
         workers/databaseworker.h
-        workers/parserworker.cpp
-        workers/parserworker.h
+        workers/xmlworker.cpp
+        workers/xmlworker.h
 
         recources.qrc
 )

@@ -10,7 +10,7 @@
 #include "dialogs/progressdialog.h"
 #include "data/codeeditor.h"
 #include "dialogs/codeeditordialog.h"
-#include "workers/parserworker.h"
+#include "workers/xmlworker.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -31,10 +31,12 @@ signals:
     void toRemove(QModelIndex index);
 
     void toParse(QDir dir);
+    void exportTo(QDir dir);
 
 public slots:
 
-    void import();
+    void importEditors();
+    void exportEditors();
 
     void showMessage(QString error);
 
@@ -45,7 +47,7 @@ private:
 
     ProgressDialog progressDialog_;
     CodeEditorDialog insertDialog_;
-    ParserWorker parserWorker_;
+    XmlWorker parserWorker_;
 };
 
 #endif // MAINWINDOW_H

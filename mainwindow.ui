@@ -44,6 +44,7 @@
    <addaction name="removeAction"/>
    <addaction name="separator"/>
    <addaction name="importAction"/>
+   <addaction name="exportAction"/>
    <addaction name="separator"/>
    <addaction name="clearAction"/>
   </widget>
@@ -51,7 +52,7 @@
   <action name="importAction">
    <property name="icon">
     <iconset resource="recources.qrc">
-     <normaloff>:/icons/icons/import.svg</normaloff>:/icons/icons/import.svg</iconset>
+     <normaloff>:/icons/import.svg</normaloff>:/icons/import.svg</iconset>
    </property>
    <property name="text">
     <string>Import</string>
@@ -63,7 +64,7 @@
   <action name="insertAction">
    <property name="icon">
     <iconset resource="recources.qrc">
-     <normaloff>:/icons/icons/add.svg</normaloff>:/icons/icons/add.svg</iconset>
+     <normaloff>:/icons/add.svg</normaloff>:/icons/add.svg</iconset>
    </property>
    <property name="text">
     <string>Add</string>
@@ -75,7 +76,7 @@
   <action name="removeAction">
    <property name="icon">
     <iconset resource="recources.qrc">
-     <normaloff>:/icons/icons/remove.svg</normaloff>:/icons/icons/remove.svg</iconset>
+     <normaloff>:/icons/remove.svg</normaloff>:/icons/remove.svg</iconset>
    </property>
    <property name="text">
     <string>Remove</string>
@@ -87,13 +88,25 @@
   <action name="clearAction">
    <property name="icon">
     <iconset resource="recources.qrc">
-     <normaloff>:/icons/icons/clear.svg</normaloff>:/icons/icons/clear.svg</iconset>
+     <normaloff>:/icons/clear.svg</normaloff>:/icons/clear.svg</iconset>
    </property>
    <property name="text">
     <string>Clear</string>
    </property>
    <property name="toolTip">
     <string>Clear all entries</string>
+   </property>
+  </action>
+  <action name="exportAction">
+   <property name="icon">
+    <iconset resource="recources.qrc">
+     <normaloff>:/icons/export.svg</normaloff>:/icons/export.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Export</string>
+   </property>
+   <property name="toolTip">
+    <string>Export entries</string>
    </property>
   </action>
  </widget>

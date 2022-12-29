@@ -15,18 +15,22 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tableView->setSelectionMode(QAbstractItemView::SingleSelection);
 
     connect(this, &MainWindow::toRemove, model, &CodeEditorTableModel::remove);
-    connect(this, &MainWindow::toParse, &parserWorker_, &ParserWorker::parse);
+    connect(this, &MainWindow::toParse, &parserWorker_, &XmlWorker::importEditors);
 
     connect(&insertDialog_, &CodeEditorDialog::success, model, &CodeEditorTableModel::insert);
     connect(ui->insertAction, &QAction::triggered, &insertDialog_, &QDialog::exec);
-    connect(ui->removeAction, &QAction::triggered, this, &MainWindow::remove);
-    connect(ui->importAction, &QAction::triggered, this, &MainWindow::import);
-    connect(ui->clearAction, &QAction::triggered, model, &CodeEditorTableModel::clear);
+    connect(ui->removeAction, &QAction::triggered, this,  &MainWindow::remove);
+    connect(ui->importAction, &QAction::triggered, this,  &MainWindow::importEditors);
+    connect(ui->exportAction, &QAction::triggered, this,  &MainWindow::exportEditors);
+    connect(ui->clearAction,  &QAction::triggered, model, &CodeEditorTableModel::clear);
 
-    connect(&parserWorker_, &ParserWorker::started, &progressDialog_, &ProgressDialog::start);
-    connect(&parserWorker_, &ParserWorker::progress, &progressDialog_, &ProgressDialog::setValue);
-    connect(&parserWorker_, &ParserWorker::log, &progressDialog_, &ProgressDialog::append);
-    connect(&parserWorker_, &ParserWorker::finished, model, &CodeEditorTableModel::import);
+    connect(&parserWorker_, &XmlWorker::started, &progressDialog_, &ProgressDialog::start);
+    connect(&parserWorker_, &XmlWorker::progress, &progressDialog_, &ProgressDialog::setValue);
+    connect(&parserWorker_, &XmlWorker::log, &progressDialog_, &ProgressDialog::append);
+    connect(&parserWorker_, &XmlWorker::imported, model, &CodeEditorTableModel::import);
+
+    connect(this, &MainWindow::exportTo, model, &CodeEditorTableModel::exportTo);
+    connect(model, &CodeEditorTableModel::exportData, &parserWorker_, &XmlWorker::exportEditors);
 
     connect(model, &CodeEditorTableModel::error, this, &MainWindow::showMessage);
 }
@@ -35,9 +39,16 @@ MainWindow::~MainWindow() {
     delete ui;
 }
 
-void MainWindow::import() {
+void MainWindow::importEditors() {
     QDir dir = QFileDialog::getExistingDirectory(this, "Open directory");
     emit toParse(dir);
+}
+
+void MainWindow::exportEditors() {
+    QDir dir = QFileDialog::getExistingDirectory(this, "Export directory");
+    if (!dir.exists()) return;
+
+    emit exportTo(dir);
 }
 
 void MainWindow::showMessage(QString error) {

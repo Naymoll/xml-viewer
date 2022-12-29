@@ -8,6 +8,7 @@
 #include <QModelIndex>
 #include <QObject>
 #include <QVector>
+#include <QDir>
 
 class CodeEditorTableModel : public QAbstractTableModel {
 Q_OBJECT
@@ -41,6 +42,8 @@ signals:
 
     void error(QString text);
 
+    void exportData(QDir dir, QVector<CodeEditor> editors);
+
 public slots:
     void import(QVector<CodeEditor> editors);
 
@@ -49,6 +52,8 @@ public slots:
     void insert(CodeEditor editor);
 
     void remove(QModelIndex index);
+
+    void exportTo(QDir dir);
 
 private slots:
     void loadCallback(QVector<CodeEditor> editors);
